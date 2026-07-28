@@ -76,7 +76,7 @@ export default function Todos({ topics, dateContext, refreshKey, onChanged, onEr
           <button className={tab === "history" ? "active" : ""} onClick={() => setTab("history")}><History size={16} />Task history</button>
         </div>
         <div className="filter-group">
-          {tab === "active" && <input type="date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} />}
+          {tab === "active" && <input className="date-input" type="date" aria-label="Task date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} />}
           <select value={topicFilter} onChange={(event) => setTopicFilter(event.target.value)}>
             <option value="">All topics</option>
             {topics.map((topic) => <option value={topic.id} key={topic.id}>{topic.name}</option>)}

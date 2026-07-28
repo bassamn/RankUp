@@ -87,9 +87,9 @@ export default function Analytics({ topics, dateContext, refreshKey, onError }) 
           ))}
         </div>
         <div className="filter-group">
-          <input type="date" value={range.startDate} onChange={(event) => { setPreset(""); setRange({ ...range, startDate: event.target.value }); }} />
+          <input className="date-input" type="date" aria-label="Analytics start date" value={range.startDate} onChange={(event) => { setPreset(""); setRange({ ...range, startDate: event.target.value }); }} />
           <span>to</span>
-          <input type="date" value={range.endDate} onChange={(event) => { setPreset(""); setRange({ ...range, endDate: event.target.value }); }} />
+          <input className="date-input" type="date" aria-label="Analytics end date" value={range.endDate} onChange={(event) => { setPreset(""); setRange({ ...range, endDate: event.target.value }); }} />
           <select value={topicId} onChange={(event) => setTopicId(event.target.value)}>
             <option value="">All topics</option>
             {topics.map((topic) => <option key={topic.id} value={topic.id}>{topic.name}</option>)}
