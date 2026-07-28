@@ -68,7 +68,7 @@ export default function Todos({ topics, dateContext, refreshKey, onChanged, onEr
   }
 
   return (
-    <div className="page">
+    <div className="page todos-page">
       <PageHeader eyebrow="GET IT DONE" title="To-do list" description="Plan work by topic and date, then build a record of completed tasks." />
       <div className="toolbar card">
         <div className="tabs">

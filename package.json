@@ -17,14 +17,15 @@
     "preview": "vite preview",
     "start": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "npm run build && electron-builder",
-    "dist:win": "npm run build && electron-builder --win",
+    "dist": "npm run build && node scripts/build-current.cjs",
+    "dist:win": "npm run build && npm run build:win",
     "dist:mac": "npm run build && electron-builder --mac",
     "dist:linux": "npm run build && electron-builder --linux",
-    "build:win": "electron-builder --win",
+    "ensure:win-cert": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/ensure-code-signing-cert.ps1",
+    "build:win": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-windows.ps1",
     "build:mac": "electron-builder --mac",
     "build:linux": "electron-builder --linux",
-    "build:all": "electron-builder -wml"
+    "build:all": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-windows.ps1 -AllPlatforms"
   },
   "dependencies": {
     "chart.js": "^4.4.9",
@@ -70,6 +71,9 @@
     ],
     "win": {
       "icon": "build/icon.ico",
+      "signtoolOptions": {
+        "certificateFile": "build/certs/rankup-local-code-signing.pfx"
+      },
       "target": [
         {
           "target": "nsis",

@@ -49,6 +49,12 @@ npm run build:all
 
 Outputs are written to `release/`: NSIS `.exe` on Windows, `.dmg` and `.zip` on macOS, and `.AppImage` plus `.deb` on Linux. Build the renderer with `npm run build` before invoking a platform package command. macOS installers must be built on macOS; Windows installers are best built on Windows. Code signing credentials can be supplied through the standard `electron-builder` environment variables when distributing publicly.
 
+### Local Windows code signing
+
+`npm run build:win`, `npm run dist:win`, and `npm run dist` on Windows automatically create and reuse a local self-signed code-signing certificate under `build/certs/`. The `.pfx` file and its randomly generated password are ignored by Git. The build wrapper passes the password to `electron-builder` only for the lifetime of the packaging process.
+
+A self-signed certificate proves that successive local builds came from the same key, but Windows will still report it as untrusted unless its public `.cer` certificate is installed into a trusted store. Public releases should replace this development certificate with a certificate from a trusted code-signing provider or Azure Trusted Signing.
+
 ## Project structure
 
 ```text

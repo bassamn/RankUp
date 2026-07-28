@@ -78,7 +78,7 @@ export default function Analytics({ topics, dateContext, refreshKey, onError }) 
   const activeAverage = report?.activeDays ? report.totalSeconds / report.activeDays : 0;
 
   return (
-    <div className="page">
+    <div className="page analytics-page">
       <PageHeader eyebrow="INSIGHTS" title="Analytics" description="See where your time goes and how your focus changes over time." />
       <div className="analytics-toolbar card">
         <div className="preset-tabs">

@@ -49,7 +49,7 @@ export default function Topics({ topics, onChanged, onError }) {
   }
 
   return (
-    <div className="page">
+    <div className="page topics-page">
       <PageHeader
         eyebrow="ORGANIZE"
         title="Your topics"

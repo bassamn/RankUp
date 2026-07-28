@@ -48,7 +48,7 @@ export default function Dashboard({ topics, dateContext, onNavigate, refreshKey 
   const average = analytics?.activeDays ? analytics.totalSeconds / analytics.activeDays : 0;
 
   return (
-    <div className="page">
+    <div className="page dashboard-page">
       <PageHeader
         eyebrow="OVERVIEW"
         title="Make today count."
