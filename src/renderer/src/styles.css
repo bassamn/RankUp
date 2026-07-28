@@ -40,6 +40,7 @@ input[type="date"] {
   color-scheme: dark;
   accent-color: #ccff00;
   min-width: 132px;
+  cursor: pointer;
   background-color: #111318;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ccff00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2v4M16 2v4M3 10h18'/%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -518,11 +519,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .settings-icon { width: 34px; height: 34px; flex-basis: 34px; }
 }
 
-@media (max-height: 760px) {
-  .page:not(.settings-page) { padding-top: 14px; padding-bottom: 10px; }
+@media (max-height: 820px) {
+  .sidebar { padding-top: 18px; padding-bottom: 12px; }
+  .brand { padding-bottom: 18px; }
+  .nav-list { gap: 3px; }
+  .nav-item { padding-top: 8px; padding-bottom: 8px; }
+  .sidebar-card { padding: 12px; }
+  .sidebar-card-icon { margin-bottom: 8px; }
+  .sidebar-card p { margin-top: 5px; line-height: 1.4; }
+  .sidebar-footer { margin-top: 12px; padding-top: 12px; }
+  .page:not(.settings-page) { padding-top: 13px; padding-bottom: 9px; }
   .page:not(.settings-page) .page-header { margin-bottom: 10px; }
   .page:not(.settings-page) .page-header h1 { margin-top: 2px; margin-bottom: 2px; font-size: 25px; }
   .page:not(.settings-page) .page-header p { font-size: 10px; }
+  .metric-grid { gap: 8px; margin-bottom: 9px; }
+  .metric-card { min-height: 64px; padding-top: 10px; padding-bottom: 10px; }
+  .dashboard-grid, .topic-grid, .timer-layout, .todo-layout, .analytics-grid { gap: 9px; }
+  .todos-page .toolbar, .analytics-page .analytics-toolbar { margin-bottom: 8px; }
   .dashboard-grid .card-heading h2,
   .analytics-grid .card-heading h2 { font-size: 14px; }
   .dashboard-grid .progress-ring { width: 78px; height: 78px; }

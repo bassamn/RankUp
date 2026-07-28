@@ -3,7 +3,9 @@ name: Build and release RankUp
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
+  release:
+    types: [published, created]
 
 permissions:
   contents: write
@@ -34,6 +36,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || github.ref }}
 
       - name: Set up Node.js 22
         uses: actions/setup-node@v4
@@ -87,8 +91,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ github.ref_name }}
-          name: RankUp ${{ github.ref_name }}
+          tag_name: ${{ github.event.release.tag_name || github.ref_name }}
+          name: RankUp ${{ github.event.release.tag_name || github.ref_name }}
           generate_release_notes: true
           draft: false
           prerelease: false

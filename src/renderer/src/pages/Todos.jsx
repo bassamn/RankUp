@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Check, CheckCircle2, History, ListTodo, Plus, Trash2 } from "lucide-react";
+import DateInput from "../components/DateInput";
 import EmptyState from "../components/EmptyState";
 import PageHeader from "../components/PageHeader";
 import { displayDate } from "../lib/format";
@@ -76,7 +77,7 @@ export default function Todos({ topics, dateContext, refreshKey, onChanged, onEr
           <button className={tab === "history" ? "active" : ""} onClick={() => setTab("history")}><History size={16} />Task history</button>
         </div>
         <div className="filter-group">
-          {tab === "active" && <input className="date-input" type="date" aria-label="Task date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} />}
+          {tab === "active" && <DateInput aria-label="Task date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} />}
           <select value={topicFilter} onChange={(event) => setTopicFilter(event.target.value)}>
             <option value="">All topics</option>
             {topics.map((topic) => <option value={topic.id} key={topic.id}>{topic.name}</option>)}
