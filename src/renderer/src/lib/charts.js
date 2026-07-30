@@ -55,5 +55,3 @@ export const chartOptions = {
     }
   }
 };
-
-export const palette = ["#c7f540", "#8b5cf6", "#32c5ff", "#ff8f5c", "#f0529c", "#43d6a3"];

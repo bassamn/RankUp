@@ -4,8 +4,9 @@ import { Bar, Doughnut, Line } from "react-chartjs-2";
 import DateInput from "../components/DateInput";
 import EmptyState from "../components/EmptyState";
 import PageHeader from "../components/PageHeader";
-import { chartOptions, palette } from "../lib/charts";
+import { chartOptions } from "../lib/charts";
 import { dateRange, datesBetween, displayDate, formatHours } from "../lib/format";
+import { getTopicColor, topicColorWithAlpha } from "../lib/topic-colors";
 
 export default function Analytics({ topics, dateContext, refreshKey, onError }) {
   const [preset, setPreset] = useState("30d");
@@ -33,19 +34,24 @@ export default function Analytics({ topics, dateContext, refreshKey, onError }) 
   const dailyChart = useMemo(() => {
     if (!report || !range.startDate) return { labels: [], datasets: [] };
     const dates = datesBetween(range.startDate, range.endDate);
-    const topicNames = [...new Set(report.daily.map((row) => row.topic_name))];
+    const topicSeries = [...new Map(
+      report.daily.map((row) => [String(row.topic_id), {
+        id: row.topic_id,
+        name: row.topic_name
+      }])
+    ).values()];
     const values = new Map(
-      report.daily.map((row) => [`${row.topic_name}|${row.date}`, row.duration_seconds])
+      report.daily.map((row) => [`${row.topic_id}|${row.date}`, row.duration_seconds])
     );
     const stride = dates.length > 45 ? 10 : dates.length > 20 ? 5 : 1;
     return {
       labels: dates.map((date, index) => index % stride === 0 ? displayDate(date, "MMM d") : ""),
-      datasets: topicNames.map((name, index) => ({
-        label: name,
-        data: dates.map((date) => (values.get(`${name}|${date}`) || 0) / 3600),
-        borderColor: palette[index % palette.length],
-        backgroundColor: index === 0 ? "rgba(199,245,64,.08)" : "transparent",
-        fill: index === 0,
+      datasets: topicSeries.map((topic) => ({
+        label: topic.name,
+        data: dates.map((date) => (values.get(`${topic.id}|${date}`) || 0) / 3600),
+        borderColor: getTopicColor(topic),
+        backgroundColor: topicColorWithAlpha(topic, 0.08),
+        fill: topicSeries.length === 1,
         tension: 0.35,
         pointRadius: 0,
         borderWidth: 2.2
@@ -57,7 +63,7 @@ export default function Analytics({ topics, dateContext, refreshKey, onError }) 
     labels: report?.byTopic.map((row) => row.topic_name) || [],
     datasets: [{
       data: report?.byTopic.map((row) => row.duration_seconds / 3600) || [],
-      backgroundColor: palette,
+      backgroundColor: report?.byTopic.map((row) => getTopicColor(row)) || [],
       borderWidth: 0,
       spacing: 3
     }]
@@ -120,7 +126,7 @@ export default function Analytics({ topics, dateContext, refreshKey, onError }) 
               <div className="doughnut-center"><strong>{formatHours(report.totalSeconds)}</strong><span>total</span></div>
             </div>
             <div className="chart-legend">
-              {report.byTopic.slice(0, 5).map((row, index) => <div key={row.topic_id}><i style={{ background: palette[index % palette.length] }} /><span>{row.topic_name}</span><strong>{formatHours(row.duration_seconds)}</strong></div>)}
+              {report.byTopic.slice(0, 5).map((row) => <div key={row.topic_id}><i style={{ background: getTopicColor(row) }} /><span>{row.topic_name}</span><strong>{formatHours(row.duration_seconds)}</strong></div>)}
             </div>
           </div>
           <div className="card chart-card analytics-line">

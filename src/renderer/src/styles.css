@@ -206,10 +206,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .topic-row { display: grid; grid-template-columns: 10px minmax(180px, 1fr) 75px 100px; align-items: center; gap: 12px; padding: 13px 2px; border-top: 1px solid rgba(255,255,255,.055); }
 .topic-row:first-child { border-top: 0; }
 .topic-dot { width: 7px; height: 7px; border-radius: 50%; }
-.dot-0 { color: #15180a; background: var(--lime) !important; }
-.dot-1 { color: white; background: #8b5cf6 !important; }
-.dot-2 { color: #07151a; background: #32c5ff !important; }
-.dot-3 { color: #1c0c06; background: #ff8f5c !important; }
 .topic-row-name strong, .topic-row-name span, .topic-row-stat span, .topic-row-stat strong { display: block; }
 .topic-row-name strong { font-size: 12px; }
 .topic-row-name span, .topic-row-stat span { margin-top: 3px; color: var(--muted-2); font-size: 9px; }

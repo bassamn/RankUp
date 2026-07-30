@@ -4,6 +4,7 @@ import EmptyState from "../components/EmptyState";
 import Modal from "../components/Modal";
 import PageHeader from "../components/PageHeader";
 import { formatDuration } from "../lib/format";
+import { getTopicColor, getTopicContrastColor } from "../lib/topic-colors";
 
 export default function Topics({ topics, onChanged, onError }) {
   const [modal, setModal] = useState(null);
@@ -58,10 +59,18 @@ export default function Topics({ topics, onChanged, onError }) {
       />
       {topics.length ? (
         <section className="topic-grid">
-          {topics.map((topic, index) => (
+          {topics.map((topic) => (
             <article className="topic-card" key={topic.id}>
               <div className="topic-card-top">
-                <span className={`topic-symbol dot-${index % 4}`}>{topic.name.slice(0, 2).toUpperCase()}</span>
+                <span
+                  className="topic-symbol"
+                  style={{
+                    backgroundColor: getTopicColor(topic),
+                    color: getTopicContrastColor(topic)
+                  }}
+                >
+                  {topic.name.slice(0, 2).toUpperCase()}
+                </span>
                 <div className="menu-wrap">
                   <button className="icon-button" onClick={() => setMenuId(menuId === topic.id ? null : topic.id)}><MoreHorizontal size={20} /></button>
                   {menuId === topic.id && (

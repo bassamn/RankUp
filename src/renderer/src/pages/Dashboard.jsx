@@ -5,6 +5,7 @@ import PageHeader from "../components/PageHeader";
 import EmptyState from "../components/EmptyState";
 import { chartOptions } from "../lib/charts";
 import { datesBetween, displayDate, formatDuration, formatHours } from "../lib/format";
+import { getTopicColor } from "../lib/topic-colors";
 
 export default function Dashboard({ topics, dateContext, onNavigate, refreshKey }) {
   const [analytics, setAnalytics] = useState(null);
@@ -108,9 +109,9 @@ export default function Dashboard({ topics, dateContext, onNavigate, refreshKey 
           </div>
           {topics.length ? (
             <div className="topic-rows">
-              {topics.slice(0, 4).map((topic, index) => (
+              {topics.slice(0, 4).map((topic) => (
                 <div className="topic-row" key={topic.id}>
-                  <span className={`topic-dot dot-${index % 4}`} />
+                  <span className="topic-dot" style={{ backgroundColor: getTopicColor(topic) }} />
                   <div className="topic-row-name"><strong>{topic.name}</strong><span>{formatDuration(topic.total_seconds, true)} overall</span></div>
                   <div className="topic-row-stat"><span>Today</span><strong>{formatDuration(topic.today_seconds, true)}</strong></div>
                   <div className="mini-progress"><span style={{ width: `${Math.min(100, (topic.week_seconds / Math.max(weekSeconds, 1)) * 100)}%` }} /></div>
